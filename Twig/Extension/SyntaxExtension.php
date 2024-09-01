@@ -19,6 +19,9 @@ namespace Propel\Bundle\PropelBundle\Twig\Extension;
  */
 class SyntaxExtension extends \Twig\Extension\AbstractExtension
 {
+    /**
+     * @return array<mixed>
+     */
     public function getFilters()
     {
         return [
