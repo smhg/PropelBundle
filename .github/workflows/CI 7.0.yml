@@ -1,4 +1,4 @@
-name: CI Branch 6.0
+name: CI Branch 7.0
 
 on:
   push:
