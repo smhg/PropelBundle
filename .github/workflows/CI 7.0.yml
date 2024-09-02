@@ -3,10 +3,10 @@ name: CI Branch 6.0
 on:
   push:
     branches:
-      - '6.0'
+      - '7.0'
   pull_request:
     branches:
-      - '6.0'
+      - '7.0'
   workflow_dispatch:
 permissions:
   contents: read
