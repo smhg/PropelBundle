@@ -36,7 +36,7 @@ class TranslationFormListener implements EventSubscriberInterface
         $this->dataClass = $dataClass;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return array(
             FormEvents::PRE_SET_DATA => array('preSetData', 1),

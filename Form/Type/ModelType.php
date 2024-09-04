@@ -248,15 +248,12 @@ class ModelType extends AbstractType
         $resolver->setAllowedTypes('query', ['null', 'Propel\Runtime\ActiveQuery\ModelCriteria']);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'model';
     }
 
-    public function getParent()
+    public function getParent(): ?string
     {
         return 'Symfony\Component\Form\Extension\Core\Type\ChoiceType';
     }

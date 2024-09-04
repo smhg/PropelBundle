@@ -11,6 +11,7 @@
 
 namespace Propel\Bundle\PropelBundle\Form;
 
+use Symfony\Component\Form\FormTypeGuesserInterface;
 use Symfony\Component\Form\AbstractExtension;
 use Symfony\Component\Form\ChoiceList\Factory\ChoiceListFactoryInterface;
 use Symfony\Component\Form\ChoiceList\Factory\DefaultChoiceListFactory;
@@ -48,7 +49,7 @@ class PropelExtension extends AbstractExtension
         $this->choiceListFactory = $choiceListFactory ?: new PropertyAccessDecorator(new DefaultChoiceListFactory(), $this->propertyAccessor);
     }
     
-    protected function loadTypes()
+    protected function loadTypes(): array
     {
         return array(
             new Type\ModelType($this->propertyAccessor, $this->choiceListFactory),
@@ -57,7 +58,7 @@ class PropelExtension extends AbstractExtension
         );
     }
 
-    protected function loadTypeGuesser()
+    protected function loadTypeGuesser(): ?FormTypeGuesserInterface
     {
         return new TypeGuesser();
     }

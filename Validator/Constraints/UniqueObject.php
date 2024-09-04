@@ -59,18 +59,12 @@ class UniqueObject extends Constraint
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getRequiredOptions()
+    public function getRequiredOptions(): array
     {
         return array('fields');
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getTargets()
+    public function getTargets(): array|string
     {
         return self::CLASS_CONSTRAINT;
     }

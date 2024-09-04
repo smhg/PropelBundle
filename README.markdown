@@ -20,6 +20,7 @@ As `Propel2` will be released in the near future, we are migrating the branching
 * The `5.0` branch contains `Propel2`(branch **2.0.0-beta1**) integration for Symfony **4.x|5.x** and PHP **7.2** - **8.0**.
 * The `5.1` branch contains `Propel2`(branch **2.0.0-beta2**) integration for Symfony **4.x|5.x|6.x** and PHP **7.4** - **8.1**.
 * The `6.0` branch contains `Propel2`(branch **2.0.0-beta2**) integration for Symfony **6.x**. and PHP **8.0.2+**
+* The `7.0` branch contains `Propel2`(branch **2.0.0-beta2**, **2.0.0-beta3**, **2.0.0-beta4**) integration for Symfony **6.x|7.x**. and PHP **8.0.2+**
 
 ## Version 6.0 Changes
 
@@ -29,11 +30,11 @@ As `Propel2` will be released in the near future, we are migrating the branching
 - propel/propel
 
 ### Composer command
-- composer require propel/propel "2.0.0-beta2"
+- composer require propel/propel "2.0.0-beta4"
 - composer require skyfox/propel-bundle "6.0.1"(or newer tag/release) or "6.0.x-dev"
 
 ### composer.json -> add in "require"
-- "propel/propel": "2.0.0-beta2"
+- "propel/propel": "2.0.0-beta4"
 - "skyfox/propel-bundle": "6.0.1"(or newer tag/release) or "6.0.x-dev"
 
 ## Features
