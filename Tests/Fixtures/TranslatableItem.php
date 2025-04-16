@@ -133,4 +133,8 @@ class TranslatableItem implements ActiveRecordInterface
     {
         return $this->currentTranslations;
     }
+
+    public function setVirtualColumn(string $name, $value)
+    {
+    }
 }

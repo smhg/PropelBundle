@@ -15,20 +15,19 @@
     },
     "require": {
         "php": ">=8.0.2",
-        "propel/propel": "2.0.0-beta2||2.0.0-beta3||2.0.0-beta4",
-        "symfony/console": "^6.0||^7.0",
-        "symfony/dependency-injection": "^6.0||^7.0",
-        "symfony/framework-bundle": "^6.0||^7.0",
-        "symfony/security-bundle": "^6.0||^7.0",
-        "symfony/yaml": "^6.0||^7.0"
+        "perplorm/perpl": "^2.0",
+        "symfony/console": "^7.0",
+        "symfony/dependency-injection": "^7.0",
+        "symfony/framework-bundle": "^7.0",
+        "symfony/security-bundle": "^7.0",
+        "symfony/yaml": "^7.0"
     },
     "require-dev": {
         "ext-json": "*",
         "ext-simplexml": "*",
         "ext-pdo": "*",
         "phpunit/phpunit": "12.1.*",
-        "sensio/framework-extra-bundle": "^6.0",
-        "symfony/form": "^6.0",
+        "symfony/form": "^7.0",
         "fakerphp/faker": "*",
         "mikey179/vfsstream": "^1.6",
         "phpstan/phpstan": "^1.8",
@@ -36,7 +35,7 @@
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpstan/phpstan-symfony": "^1.2",
         "twig/twig": "*",
-        "symfony/stopwatch": "^6.0"
+        "symfony/stopwatch": "^7.0"
     },
     "config": {
         "allow-plugins": {

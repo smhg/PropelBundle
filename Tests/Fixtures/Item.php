@@ -111,4 +111,8 @@ class Item implements ActiveRecordInterface
     public function save(ConnectionInterface $con = null)
     {
     }
+
+    public function setVirtualColumn(string $name, $value)
+    {
+    }
 }
