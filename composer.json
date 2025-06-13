@@ -43,5 +43,8 @@
         "allow-plugins": {
             "phpstan/extension-installer": true
         }
+    },
+    "scripts": {
+        "stan": "phpstan"
     }
 }
