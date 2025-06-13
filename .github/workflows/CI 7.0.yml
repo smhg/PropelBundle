@@ -61,3 +61,6 @@ jobs:
 #          files: ./Tests/coverage.xml
 #          fail_ci_if_error: true
 #          verbose: true
+
+      - name: Run phpstan
+        run: composer run stan
