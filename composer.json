@@ -44,6 +44,7 @@
         }
     },
     "scripts": {
-        "test": "phpunit -c phpunit.xml.dist"
+        "test": "phpunit -c phpunit.xml.dist --display-deprecations --display-notices --display-warnings",
+        "coverage": "XDEBUG_MODE=coverage phpunit -c phpunit.xml.dist --coverage-clover=Tests/coverage.xml"
     }
 }
