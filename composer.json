@@ -42,5 +42,8 @@
         "allow-plugins": {
             "phpstan/extension-installer": true
         }
+    },
+    "scripts": {
+        "test": "phpunit -c phpunit.xml.dist"
     }
 }
