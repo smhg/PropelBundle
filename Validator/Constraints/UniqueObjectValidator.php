@@ -34,7 +34,7 @@ class UniqueObjectValidator extends ConstraintValidator
         $class          = get_class($object);
         $queryClass     = $class . 'Query';
         $tableMapClass  = $class::TABLE_MAP;
-        $classFields    = $tableMapClass::getFieldnames(TableMap::TYPE_FIELDNAME);
+        $classFields    = $tableMapClass::getFieldNames(TableMap::TYPE_FIELDNAME);
 
         // ensure at least one field is selected
         if (0 === \count($fields)) {
