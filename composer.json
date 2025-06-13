@@ -32,11 +32,12 @@
         "fakerphp/faker": "*",
         "mikey179/vfsstream": "^1.6",
         "phpstan/phpstan": "^1.8",
-        "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-symfony": "^1.2",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan-deprecation-rules": "^1.2",
+        "phpstan/phpstan-symfony": "^1.4",
         "twig/twig": "*",
-        "symfony/stopwatch": "^6.0"
+        "symfony/stopwatch": "^6.0",
+        "phpstan/phpstan-phpunit": "^1.4"
     },
     "config": {
         "allow-plugins": {
