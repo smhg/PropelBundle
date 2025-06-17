@@ -45,6 +45,7 @@
     },
     "scripts": {
         "stan": "phpstan"
+    },
     "extra": {
     },
     "scripts": {
