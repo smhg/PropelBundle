@@ -27,7 +27,6 @@
         "ext-simplexml": "*",
         "ext-pdo": "*",
         "phpunit/phpunit": "*",
-        "sensio/framework-extra-bundle": "^6.0",
         "symfony/form": "^6.0",
         "fakerphp/faker": "*",
         "mikey179/vfsstream": "^1.6",
@@ -46,5 +45,8 @@
     },
     "scripts": {
         "stan": "phpstan"
+    "extra": {
+    },
+    "scripts": {
     }
 }
