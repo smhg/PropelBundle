@@ -1,7 +1,7 @@
 PerplBundle
 ===========
 
-[![CI](https://github.com/perplorm/perpl-bundle/actions/workflows/ci.yml/badge.svg)](https://github.com/perplorm/perpl-bundle/actions/workflows/ci.yml)
+[![CI](https://github.com/smhg/PropelBundle/actions/workflows/ci.yml/badge.svg)](https://github.com/smhg/PropelBundle/actions/workflows/ci.yml)
 
 Integration of [Perpl](https://perplorm.github.io), the maintained fork of Propel2, and of [Propel2](https://github.com/propelorm/Propel2) itself in Symfony.
 
@@ -19,7 +19,7 @@ With Perpl:
 composer require perplorm/perpl perplorm/perpl-bundle
 ```
 
-With Propel2, require its `master` branch first, as you already do today:
+With Propel2, which has no usable release on Packagist, require its `master` branch:
 
 ```bash
 composer require propel/propel:dev-master perplorm/perpl-bundle
@@ -64,25 +64,25 @@ Schemas are read from `config/*schema.xml`, from `propel/schema.xml` (see `prope
 * Loading SQL, YAML and XML fixtures;
 * Creating and dropping databases;
 * Integration with the Form, Security and Validator components;
-* Resolving controller arguments type-hinted with a model class from route parameters.
+* Resolving model controller arguments from route parameters.
 
 ### Controller arguments
 
-Arguments type-hinted with a model class are looked up by primary key, or by the other route parameters matching a column:
-
-```php
-#[Route('/books/{id}')]
-public function show(Book $book): Response
-
-#[Route('/books/{slug}')]
-public function showBySlug(Book $book): Response
-```
-
-Configure the lookup with the `#[MapModel]` attribute:
+Arguments marked with the `#[MapModel]` attribute are looked up by primary key, or by the other route parameters matching a column:
 
 ```php
 use Propel\Bundle\PropelBundle\Attribute\MapModel;
 
+#[Route('/books/{id}')]
+public function show(#[MapModel] Book $book): Response
+
+#[Route('/books/{slug}')]
+public function showBySlug(#[MapModel] Book $book): Response
+```
+
+The attribute also configures the lookup:
+
+```php
 #[Route('/authors/{author_id}/books')]
 public function books(#[MapModel(mapping: ['author_id' => 'id'], with: 'Book')] Author $author): Response
 ```
