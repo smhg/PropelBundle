@@ -25,7 +25,8 @@
     <exclude>
       <directory>./Tests</directory>
       <directory>./vendor</directory>
-      <directory>./Resources</directory>
+      <directory>./config</directory>
+      <directory>./templates</directory>
     </exclude>
   </source>
 </phpunit>

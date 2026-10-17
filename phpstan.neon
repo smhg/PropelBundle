@@ -6,6 +6,6 @@ parameters:
   paths:
     - ./
   excludePaths:
-    - Resources/skeleton
+    - templates/skeleton
     - Tests
     - vendor

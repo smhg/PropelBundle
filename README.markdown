@@ -56,4 +56,4 @@ As `Propel2` will be released in the near future, we are migrating the branching
 
 For license, see:
 
-    Resources/meta/LICENSE
+    LICENSE
