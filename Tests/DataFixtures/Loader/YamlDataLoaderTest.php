@@ -240,7 +240,7 @@ YAML;
         $filename = $this->getTempFile($fixtures);
 
         $builder = new QuickBuilder();
-        $builder->setSchema($schema);
+        $builder->setSchemaXml($schema);
 
         $con = $builder->build();
 
@@ -329,7 +329,7 @@ YAML;
         $filename2 = $this->getTempFile($fixtures2);
 
         $builder = new QuickBuilder();
-        $builder->setSchema($schema);
+        $builder->setSchemaXml($schema);
         $con = $builder->build();
 
         $loader = new YamlDataLoader(__DIR__.'/../../Fixtures/DataFixtures/Loader', array());
@@ -398,7 +398,7 @@ YAML;
         $filename = $this->getTempFile($fixtures);
 
         $builder = new QuickBuilder();
-        $builder->setSchema($schema);
+        $builder->setSchemaXml($schema);
         $con = $builder->build();
 
         $loader = new YamlDataLoader(__DIR__.'/../../Fixtures/DataFixtures/Loader', array());
@@ -433,7 +433,7 @@ YAML;
         $filename = $this->getTempFile($fixtures);
 
         $builder = new QuickBuilder();
-        $builder->setSchema($schema);
+        $builder->setSchemaXml($schema);
         $con = $builder->build();
 
         $loader = new YamlDataLoader(__DIR__.'/../../Fixtures/DataFixtures/Loader', array());
@@ -483,7 +483,7 @@ YAML;
         $filename = $this->getTempFile($fixtures);
 
         $builder = new QuickBuilder();
-        $builder->setSchema($schema);
+        $builder->setSchemaXml($schema);
         $con = $builder->build();
 
         $loader = new YamlDataLoader(__DIR__.'/../../Fixtures/DataFixtures/Loader', array());

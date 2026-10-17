@@ -11,7 +11,7 @@
 
 namespace Propel\Bundle\PropelBundle\Tests\Fixtures;
 
-use Propel\Generator\Model\PropelTypes;
+use Propel\Generator\Model\Datatype\ColumnType;
 
 class Column
 {
@@ -25,7 +25,7 @@ class Column
         $this->type = $type;
     }
 
-    public function getType()
+    public function getColumnType()
     {
         return $this->type;
     }
@@ -37,12 +37,12 @@ class Column
         }
 
         switch ($this->type) {
-            case PropelTypes::CHAR:
-            case PropelTypes::VARCHAR:
-            case PropelTypes::LONGVARCHAR:
-            case PropelTypes::BLOB:
-            case PropelTypes::CLOB:
-            case PropelTypes::CLOB_EMU:
+            case ColumnType::CHAR:
+            case ColumnType::VARCHAR:
+            case ColumnType::LONGVARCHAR:
+            case ColumnType::BLOB:
+            case ColumnType::CLOB:
+            case ColumnType::CLOB_EMU:
                 return true;
         }
 

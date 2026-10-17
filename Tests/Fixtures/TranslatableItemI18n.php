@@ -11,6 +11,7 @@
 
 namespace Propel\Bundle\PropelBundle\Tests\Fixtures;
 
+use Propel\Runtime\ActiveQuery\FilterExpression\FilterCollector;
 use Propel\Runtime\ActiveRecord\ActiveRecordInterface;
 use Propel\Runtime\Connection\ConnectionInterface;
 
@@ -73,7 +74,7 @@ class TranslatableItemI18n implements ActiveRecordInterface
         return false;
     }
 
-    public function setNew($b)
+    public function setNew(bool $b): void
     {
     }
 
@@ -86,7 +87,7 @@ class TranslatableItemI18n implements ActiveRecordInterface
         return false;
     }
 
-    public function setDeleted($b)
+    public function setDeleted(bool $b): void
     {
     }
 
@@ -139,5 +140,23 @@ class TranslatableItemI18n implements ActiveRecordInterface
     public function getValue2()
     {
         return $this->value2;
+    }
+
+    public function setVirtualColumn(string $name, $value)
+    {
+    }
+
+    public function hashCode()
+    {
+        return spl_object_hash($this);
+    }
+
+    public function clear()
+    {
+    }
+
+    public static function createFromFilters(FilterCollector $filterCollector)
+    {
+        return new static();
     }
 }

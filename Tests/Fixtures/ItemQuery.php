@@ -14,21 +14,21 @@ namespace Propel\Bundle\PropelBundle\Tests\Fixtures;
 use Propel\Runtime\Map\ColumnMap;
 use Propel\Runtime\Map\RelationMap;
 use Propel\Runtime\Map\TableMap;
-use Propel\Generator\Model\PropelTypes;
+use Propel\Generator\Model\Datatype\ColumnType;
 
 class ItemQuery
 {
     private $map = array(
-        'id'            => PropelTypes::INTEGER,
-        'value'         => PropelTypes::VARCHAR,
-        'price'         => PropelTypes::FLOAT,
-        'is_active'     => PropelTypes::BOOLEAN,
-        'enabled'       => PropelTypes::BOOLEAN_EMU,
-        'updated_at'    => PropelTypes::TIMESTAMP,
+        'id'            => ColumnType::INTEGER,
+        'value'         => ColumnType::VARCHAR,
+        'price'         => ColumnType::FLOAT,
+        'is_active'     => ColumnType::BOOLEAN,
+        'enabled'       => ColumnType::BOOLEAN_EMU,
+        'updated_at'    => ColumnType::TIMESTAMP,
 
-        'updated_at'    => PropelTypes::TIMESTAMP,
-        'updated_at'    => PropelTypes::TIMESTAMP,
-        'updated_at'    => PropelTypes::TIMESTAMP,
+        'updated_at'    => ColumnType::TIMESTAMP,
+        'updated_at'    => ColumnType::TIMESTAMP,
+        'updated_at'    => ColumnType::TIMESTAMP,
     );
 
     public function getTableMap()
@@ -40,8 +40,7 @@ class ItemQuery
 
     public function getPrimaryKeys()
     {
-        $cm = new ColumnMap('id', new TableMap());
-        $cm->setType('INTEGER');
+        $cm = new ColumnMap('id', new TableMap(), 'Id', ColumnType::INTEGER);
 
         return array('id' => $cm);
     }
@@ -73,10 +72,10 @@ class ItemQuery
     {
         // table maps
         $authorTable = new TableMap();
-        $authorTable->setClassName('\Foo\Author');
+        $authorTable->setModelClassName('\Foo\Author');
 
         $resellerTable = new TableMap();
-        $resellerTable->setClassName('\Foo\Reseller');
+        $resellerTable->setModelClassName('\Foo\Reseller');
 
         $defaultLocalTable = new TableMap('local');
         $defaultForeignTable = new TableMap('foreign');
