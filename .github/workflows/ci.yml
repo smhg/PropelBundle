@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: "PHP ${{ matrix.php-version }} - Symfony ${{ matrix.symfony-version }}"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: [ '8.2', '8.3', '8.4', '8.5' ]
+        symfony-version: [ '7.4.*', '8.*' ]
+        exclude:
+          # Symfony 8 requires PHP 8.4
+          - php-version: '8.2'
+            symfony-version: '8.*'
+          - php-version: '8.3'
+            symfony-version: '8.*'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: none
+          tools: flex
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v3
+        with:
+          dependency-versions: highest
+        env:
+          SYMFONY_REQUIRE: ${{ matrix.symfony-version }}
+
+      - name: Run tests
+        run: vendor/bin/phpunit --display-deprecations --display-notices --display-warnings
