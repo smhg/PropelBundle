@@ -2,18 +2,28 @@
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use Propel\Bundle\PropelBundle\DataCollector\PropelDataCollector;
+use Propel\Bundle\PropelBundle\DataFixtures\Dumper\YamlDataDumper;
+use Propel\Bundle\PropelBundle\DataFixtures\Loader\XmlDataLoader;
+use Propel\Bundle\PropelBundle\DataFixtures\Loader\YamlDataLoader;
+use Propel\Bundle\PropelBundle\Form\TypeGuesser;
+use Propel\Bundle\PropelBundle\Form\Type\ModelType;
+use Propel\Bundle\PropelBundle\Logger\PropelLogger;
+use Propel\Bundle\PropelBundle\Service\SchemaLocator;
+use Propel\Bundle\PropelBundle\Twig\Extension\SyntaxExtension;
+
 return static function (ContainerConfigurator $container): void {
     $container->parameters()
         ->set('propel.dbal.default_connection', 'default')
-        ->set('propel.schema_locator.class', 'Propel\Bundle\PropelBundle\Service\SchemaLocator')
-        ->set('propel.data_collector.class', 'Propel\Bundle\PropelBundle\DataCollector\PropelDataCollector')
-        ->set('propel.logger.class', 'Propel\Bundle\PropelBundle\Logger\PropelLogger')
-        ->set('propel.twig.extension.syntax.class', 'Propel\Bundle\PropelBundle\Twig\Extension\SyntaxExtension')
-        ->set('form.type_guesser.propel.class', 'Propel\Bundle\PropelBundle\Form\TypeGuesser')
-        ->set('propel.form.type.model.class', 'Propel\Bundle\PropelBundle\Form\Type\ModelType')
-        ->set('propel.dumper.yaml.class', 'Propel\Bundle\PropelBundle\DataFixtures\Dumper\YamlDataDumper')
-        ->set('propel.loader.yaml.class', 'Propel\Bundle\PropelBundle\DataFixtures\Loader\YamlDataLoader')
-        ->set('propel.loader.xml.class', 'Propel\Bundle\PropelBundle\DataFixtures\Loader\XmlDataLoader');
+        ->set('propel.schema_locator.class', SchemaLocator::class)
+        ->set('propel.data_collector.class', PropelDataCollector::class)
+        ->set('propel.logger.class', PropelLogger::class)
+        ->set('propel.twig.extension.syntax.class', SyntaxExtension::class)
+        ->set('form.type_guesser.propel.class', TypeGuesser::class)
+        ->set('propel.form.type.model.class', ModelType::class)
+        ->set('propel.dumper.yaml.class', YamlDataDumper::class)
+        ->set('propel.loader.yaml.class', YamlDataLoader::class)
+        ->set('propel.loader.xml.class', XmlDataLoader::class);
 
     $container->services()
         ->set('propel.schema_locator', '%propel.schema_locator.class%')
