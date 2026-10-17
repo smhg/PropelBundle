@@ -12,6 +12,7 @@ namespace Propel\Bundle\PropelBundle\Command;
 
 use Propel\Runtime\Adapter\Pdo\MysqlAdapter;
 use Propel\Runtime\Propel;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,6 +22,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
+#[AsCommand(name: 'propel:table:drop', description: 'Drop a given table or all tables in the database.')]
 class TableDropCommand extends AbstractCommand
 {
     use FormattingHelpers;
@@ -31,9 +33,6 @@ class TableDropCommand extends AbstractCommand
     protected function configure(): void
     {
         $this
-            ->setName('propel:table:drop')
-            ->setDescription('Drop a given table or all tables in the database.')
-
             ->addOption('connection',   null, InputOption::VALUE_OPTIONAL, 'Connection to use. Example: default, bookstore')
             ->addOption('force',        null, InputOption::VALUE_NONE, 'Set this parameter to execute this action.')
             ->addArgument('table',      InputArgument::IS_ARRAY, 'Set this parameter to défine which table to delete (default all the table in the database.')

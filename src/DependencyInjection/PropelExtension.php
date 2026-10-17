@@ -53,7 +53,6 @@ class PropelExtension extends Extension
             $loader->load('propel.php');
             $loader->load('value_resolver.php');
             $loader->load('security.php');
-            $loader->load('console.php');
             $loader->load('services.php');
 
             if (($env = $container->getParameter('kernel.environment')) === 'dev' && class_exists(WebProfilerExtension::class)) {

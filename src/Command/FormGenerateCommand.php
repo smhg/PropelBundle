@@ -17,6 +17,7 @@ use Propel\Generator\Model\Database;
 use Propel\Generator\Model\Table;
 use Propel\Generator\Manager\ModelManager;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -28,6 +29,7 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 /**
  * @author William DURAND <william.durand1@gmail.com>
  */
+#[AsCommand(name: 'propel:form:generate', description: 'Generate Form types stubs based on the schema.xml')]
 class FormGenerateCommand extends AbstractCommand
 {
     const DEFAULT_FORM_TYPE_DIRECTORY = '/Form/Type';
@@ -40,9 +42,6 @@ class FormGenerateCommand extends AbstractCommand
     protected function configure(): void
     {
         $this
-            ->setName('propel:form:generate')
-            ->setDescription('Generate Form types stubs based on the schema.xml')
-
             ->addOption('force', 'f', InputOption::VALUE_NONE, 'Overwrite existing Form types')
             ->addOption('platform',  null, InputOption::VALUE_REQUIRED,  'The platform')
             ->addArgument('bundle', InputArgument::OPTIONAL, 'The bundle to use to generate Form types (Ex: @AcmeDemoBundle)')

@@ -10,6 +10,7 @@
 
 namespace Propel\Bundle\PropelBundle\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -21,6 +22,7 @@ use Symfony\Component\Filesystem\Filesystem;
  *
  * @author William DURAND <william.durand1@gmail.com>
  */
+#[AsCommand(name: 'propel:fixtures:dump', description: 'Dump data from database into YAML fixtures file.')]
 class FixturesDumpCommand extends AbstractCommand
 {
     /**
@@ -34,8 +36,6 @@ class FixturesDumpCommand extends AbstractCommand
     protected function configure(): void
     {
         $this
-            ->setName('propel:fixtures:dump')
-            ->setDescription('Dump data from database into YAML fixtures file.')
             ->setHelp(<<<EOT
 The <info>propel:fixtures:dump</info> dumps data from database into YAML fixtures file.
 

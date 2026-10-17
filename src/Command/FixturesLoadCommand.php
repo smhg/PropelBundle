@@ -10,6 +10,7 @@
 
 namespace Propel\Bundle\PropelBundle\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -24,6 +25,7 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
  *
  * @author William DURAND <william.durand1@gmail.com>
  */
+#[AsCommand(name: 'propel:fixtures:load', description: 'Load XML, SQL and/or YAML fixtures')]
 class FixturesLoadCommand extends AbstractCommand
 {
     /**
@@ -47,8 +49,6 @@ class FixturesLoadCommand extends AbstractCommand
     protected function configure(): void
     {
         $this
-            ->setName('propel:fixtures:load')
-            ->setDescription('Load XML, SQL and/or YAML fixtures')
             ->setHelp(<<<EOT
 The <info>propel:fixtures:load</info> loads <info>XML</info>, <info>SQL</info> and/or <info>YAML</info> fixtures.
 

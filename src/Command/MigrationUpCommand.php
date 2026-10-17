@@ -10,6 +10,7 @@
 
 namespace Propel\Bundle\PropelBundle\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,6 +20,7 @@ use Propel\Generator\Command\MigrationUpCommand as BaseMigrationCommand;
 /**
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
+#[AsCommand(name: 'propel:migration:up', description: 'Execute (only one) next migration')]
 class MigrationUpCommand extends WrappedCommand
 {
     /**
@@ -29,9 +31,6 @@ class MigrationUpCommand extends WrappedCommand
         parent::configure();
 
         $this
-            ->setName('propel:migration:up')
-            ->setDescription('Execute (only one) next migration')
-
             ->addOption('connection',       null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL, 'Connection to use. Example: default, bookstore')
             ->addOption('migration-table',  null, InputOption::VALUE_OPTIONAL,  'Migration table name (if none given, the configured table is used)', null)
             ->addOption('output-dir',       null, InputOption::VALUE_OPTIONAL,  'The output directory')

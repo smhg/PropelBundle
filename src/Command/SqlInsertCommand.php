@@ -10,6 +10,7 @@
 
 namespace Propel\Bundle\PropelBundle\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,6 +19,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
+#[AsCommand(name: 'propel:sql:insert', description: 'Insert SQL statements')]
 class SqlInsertCommand extends WrappedCommand
 {
     /**
@@ -26,8 +28,6 @@ class SqlInsertCommand extends WrappedCommand
     protected function configure(): void
     {
         $this
-            ->setName('propel:sql:insert')
-            ->setDescription('Insert SQL statements')
             ->addOption('force', null, InputOption::VALUE_NONE, 'Set this parameter to execute this action.')
             ->addOption('sql-dir', null, InputOption::VALUE_REQUIRED, 'The SQL files directory')
             ->addOption('connection', null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL, 'Connection to use. Example: default, bookstore')

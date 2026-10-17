@@ -10,6 +10,7 @@
 
 namespace Propel\Bundle\PropelBundle\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -20,6 +21,7 @@ use Propel\Generator\Command\DatabaseReverseCommand as BaseDatabaseReverseComman
 /**
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
+#[AsCommand(name: 'propel:database:reverse', description: 'Reverse-engineer a XML schema file based on given database')]
 class DatabaseReverseCommand extends WrappedCommand
 {
     /**
@@ -30,9 +32,6 @@ class DatabaseReverseCommand extends WrappedCommand
         parent::configure();
 
         $this
-            ->setName('propel:database:reverse')
-            ->setDescription('Reverse-engineer a XML schema file based on given database')
-
             ->addArgument('connection',     InputArgument::REQUIRED,           'Connection to use. Example: "default"')
             ->addOption('output-dir',       null, InputOption::VALUE_REQUIRED, 'The output directory', BaseDatabaseReverseCommand::DEFAULT_OUTPUT_DIRECTORY)
             ->addOption('database-name',    null, InputOption::VALUE_REQUIRED, 'The database name to reverse', BaseDatabaseReverseCommand::DEFAULT_DATABASE_NAME)

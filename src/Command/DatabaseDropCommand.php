@@ -13,6 +13,7 @@ namespace Propel\Bundle\PropelBundle\Command;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ServiceContainer\StandardServiceContainer;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -24,6 +25,7 @@ use Propel\Runtime\Connection\ConnectionManagerSingle;
  *
  * @author William DURAND
  */
+#[AsCommand(name: 'propel:database:drop', description: 'Drop a given database or the default one.')]
 class DatabaseDropCommand extends AbstractCommand
 {
     /**
@@ -32,8 +34,6 @@ class DatabaseDropCommand extends AbstractCommand
     protected function configure(): void
     {
         $this
-            ->setName('propel:database:drop')
-            ->setDescription('Drop a given database or the default one.')
             ->setHelp(<<<EOT
 The <info>propel:database:drop</info> command will drop your database.
 

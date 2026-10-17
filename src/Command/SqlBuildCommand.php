@@ -10,6 +10,7 @@
 
 namespace Propel\Bundle\PropelBundle\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,6 +18,7 @@ use Symfony\Component\Console\Input\InputInterface;
 /**
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
+#[AsCommand(name: 'propel:sql:build', description: 'Build SQL files')]
 class SqlBuildCommand extends WrappedCommand
 {
     /**
@@ -27,8 +29,6 @@ class SqlBuildCommand extends WrappedCommand
         parent::configure();
 
         $this
-            ->setName('propel:sql:build')
-            ->setDescription('Build SQL files')
             ->addOption('sql-dir', null, InputOption::VALUE_REQUIRED, 'The SQL files directory')
             ->addOption('overwrite', null, InputOption::VALUE_NONE, '')
             ->addOption('connection', null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL, 'Connection to use. Example: default, bookstore')

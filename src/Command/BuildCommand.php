@@ -10,6 +10,7 @@
 
 namespace Propel\Bundle\PropelBundle\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputOption;
@@ -19,6 +20,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
+#[AsCommand(name: 'propel:build', description: 'Hub for Propel build commands (Model classes, SQL)')]
 class BuildCommand extends Command
 {
     /**
@@ -27,9 +29,6 @@ class BuildCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setName('propel:build')
-            ->setDescription('Hub for Propel build commands (Model classes, SQL)')
-
             ->setDefinition(array(
                 new InputOption('classes', '', InputOption::VALUE_NONE, 'Build only classes'),
                 new InputOption('sql', '', InputOption::VALUE_NONE, 'Build only SQL'),
