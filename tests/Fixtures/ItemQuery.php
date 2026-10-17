@@ -11,24 +11,22 @@
 
 namespace Propel\Bundle\PropelBundle\Tests\Fixtures;
 
-use Propel\Runtime\Map\ColumnMap;
 use Propel\Runtime\Map\RelationMap;
 use Propel\Runtime\Map\TableMap;
-use Propel\Generator\Model\Datatype\ColumnType;
 
 class ItemQuery
 {
     private $map = array(
-        'id'            => ColumnType::INTEGER,
-        'value'         => ColumnType::VARCHAR,
-        'price'         => ColumnType::FLOAT,
-        'is_active'     => ColumnType::BOOLEAN,
-        'enabled'       => ColumnType::BOOLEAN_EMU,
-        'updated_at'    => ColumnType::TIMESTAMP,
+        'id'            => 'INTEGER',
+        'value'         => 'VARCHAR',
+        'price'         => 'FLOAT',
+        'is_active'     => 'BOOLEAN',
+        'enabled'       => 'BOOLEAN_EMU',
+        'updated_at'    => 'TIMESTAMP',
 
-        'updated_at'    => ColumnType::TIMESTAMP,
-        'updated_at'    => ColumnType::TIMESTAMP,
-        'updated_at'    => ColumnType::TIMESTAMP,
+        'updated_at'    => 'TIMESTAMP',
+        'updated_at'    => 'TIMESTAMP',
+        'updated_at'    => 'TIMESTAMP',
     );
 
     public function getTableMap()
@@ -40,7 +38,7 @@ class ItemQuery
 
     public function getPrimaryKeys()
     {
-        $cm = new ColumnMap('id', new TableMap(), 'Id', ColumnType::INTEGER);
+        $cm = MapCompat::column('id', new TableMap(), 'Id', 'INTEGER');
 
         return array('id' => $cm);
     }
@@ -59,7 +57,11 @@ class ItemQuery
     public function getColumn($column)
     {
         if ($this->hasColumn($column)) {
-            return new Column($column, $this->map[$column]);
+            $cm = MapCompat::column($column, new TableMap(), ucfirst($column), $this->map[$column]);
+            $cm->setSize($cm->isText() ? 255 : 0);
+            $cm->setNotNull('id' === $column);
+
+            return $cm;
         }
 
         return null;
@@ -71,11 +73,8 @@ class ItemQuery
     public function getRelations()
     {
         // table maps
-        $authorTable = new TableMap();
-        $authorTable->setModelClassName('\Foo\Author');
-
-        $resellerTable = new TableMap();
-        $resellerTable->setModelClassName('\Foo\Reseller');
+        $authorTable = MapCompat::table('\Foo\Author');
+        $resellerTable = MapCompat::table('\Foo\Reseller');
 
         $defaultLocalTable = new TableMap('local');
         $defaultForeignTable = new TableMap('foreign');

@@ -12,7 +12,7 @@ namespace Propel\Bundle\PropelBundle\DataFixtures\Dumper;
 
 use \PDO;
 use Propel\Bundle\PropelBundle\DataFixtures\AbstractDataHandler;
-use Propel\Generator\Model\Datatype\ColumnType;
+use Propel\Bundle\PropelBundle\Util\ColumnTypeName;
 use Propel\Runtime\Map\ColumnMap;
 use Propel\Runtime\Propel;
 
@@ -154,7 +154,7 @@ abstract class AbstractDataDumper extends AbstractDataHandler implements DataDum
                                     $values[$col] = strlen($row[$col]) ? $relatedTable->getPhpName().'_'.$row[$col] : '';
                                 }
                             } elseif (!$isPrimaryKey || !$tableMap->isUseIdGenerator()) {
-                                if (!empty($row[$col]) && ColumnType::ARRAY === $column->getColumnType()) {
+                                if (!empty($row[$col]) && 'ARRAY' === ColumnTypeName::of($column)) {
                                     $serialized = substr($row[$col], 2, -2);
                                     $row[$col]  = $serialized ? explode(' | ', $serialized) : array();
                                 }
@@ -163,7 +163,7 @@ abstract class AbstractDataDumper extends AbstractDataHandler implements DataDum
                                 $values[$col] = $row[$col];
                             }
 
-                            if (ColumnType::OBJECT === $column->getColumnType()) {
+                            if ('OBJECT' === ColumnTypeName::of($column)) {
                                 $values[$col] = unserialize($row[$col]);
                             }
                         }

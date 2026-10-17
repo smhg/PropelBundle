@@ -19,3 +19,8 @@ parameters:
     -
       message: '#^Call to deprecated method (getClassName|isUseIdGenerator|joinWith)\(\) of class Propel\\#'
       reportUnmatched: false
+    # one branch is unreachable, depending on whether propel/propel or Perpl is installed
+    -
+      path: src/Util/ColumnTypeName.php
+      identifiers: [function.alreadyNarrowedType, function.impossibleType, method.notFound]
+      reportUnmatched: false
