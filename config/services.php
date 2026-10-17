@@ -13,7 +13,7 @@ return static function (ContainerConfigurator $container): void {
 
     // Twig\Extension\SyntaxExtension.php is defined in propel.php
     $services->load('Propel\Bundle\PropelBundle\\', '../src/*')
-        ->exclude('../src/{Console,Propel,Model,Migrations,Helpers,DependencyInjection,Form,Listener,Validator,Twig/Extension/SyntaxExtension.php,DataCollector,AppBundle.php}');
+        ->exclude('../src/{ArgumentResolver,Attribute,Console,Propel,Model,Migrations,Helpers,DependencyInjection,Form,Listener,Validator,Twig/Extension/SyntaxExtension.php,DataCollector,AppBundle.php}');
 
     $services->alias(ContainerInterface::class, 'service_container');
 };

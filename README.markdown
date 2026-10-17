@@ -50,7 +50,7 @@ As `Propel2` will be released in the near future, we are migrating the branching
 * Create/Drop databases;
 * Integration with the Form component;
 * Integration with the Security component;
-* Propel ParamConverter can be used with Sensio Framework Extra Bundle.
+* Controller arguments type-hinted with a model class are resolved from route parameters (configurable with `#[MapModel]`).
 
 [Read the documentation](http://propelorm.org/documentation/)
 

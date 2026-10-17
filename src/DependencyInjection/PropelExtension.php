@@ -51,7 +51,7 @@ class PropelExtension extends Extension
         if (!$container->hasDefinition('propel')) {
             $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../../config'));
             $loader->load('propel.php');
-            $loader->load('converters.php');
+            $loader->load('value_resolver.php');
             $loader->load('security.php');
             $loader->load('console.php');
             $loader->load('services.php');
