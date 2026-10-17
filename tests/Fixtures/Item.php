@@ -105,11 +105,11 @@ class Item implements ActiveRecordInterface
     {
     }
 
-    public function delete(ConnectionInterface $con = null)
+    public function delete(?ConnectionInterface $con = null)
     {
     }
 
-    public function save(ConnectionInterface $con = null)
+    public function save(?ConnectionInterface $con = null)
     {
     }
 

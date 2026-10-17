@@ -98,15 +98,15 @@ class TranslatableItem implements ActiveRecordInterface
     {
     }
 
-    public function delete(ConnectionInterface $con = null)
+    public function delete(?ConnectionInterface $con = null)
     {
     }
 
-    public function save(ConnectionInterface $con = null)
+    public function save(?ConnectionInterface $con = null)
     {
     }
 
-    public function getTranslation($locale = 'de', ConnectionInterface $con = null)
+    public function getTranslation($locale = 'de', ?ConnectionInterface $con = null)
     {
         if (!isset($this->currentTranslations[$locale])) {
             $translation = new TranslatableItemI18n();
