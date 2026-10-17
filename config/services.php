@@ -2,18 +2,21 @@
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Propel\Bundle\PropelBundle\Controller\PanelController;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-return static function (ContainerConfigurator $container): void {
-    $services = $container->services()
-        ->defaults()
-            ->autowire()
-            ->autoconfigure()
-            ->private();
+return static function (ContainerConfigurator $container, ContainerBuilder $builder): void {
+    $services = $container->services();
 
-    // Twig\Extension\SyntaxExtension.php is defined in propel.php
-    $services->load('Propel\Bundle\PropelBundle\\', '../src/*')
-        ->exclude('../src/{ArgumentResolver,Attribute,Console,Propel,Model,Migrations,Helpers,DependencyInjection,Form,Listener,Validator,Twig/Extension/SyntaxExtension.php,DataCollector,AppBundle.php}');
+    $services->load('Propel\Bundle\PropelBundle\Command\\', '../src/Command/*Command.php')
+        ->bind('$container', service('service_container'))
+        ->tag('console.command');
 
-    $services->alias(ContainerInterface::class, 'service_container');
+    // used by the web profiler panel
+    if (isset($builder->getParameter('kernel.bundles')['WebProfilerBundle'])) {
+        $services->set(PanelController::class)
+            ->public()
+            ->args([service('twig'), service('profiler')->nullOnInvalid(), '%propel.configuration%', '%propel.logging%'])
+            ->tag('controller.service_arguments');
+    }
 };

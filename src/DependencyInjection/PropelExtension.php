@@ -10,10 +10,8 @@
 
 namespace Propel\Bundle\PropelBundle\DependencyInjection;
 
-use Symfony\Bundle\WebProfilerBundle\DependencyInjection\WebProfilerExtension;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\HttpKernel\Profiler\Profiler;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 
@@ -54,10 +52,6 @@ class PropelExtension extends Extension
             $loader->load('value_resolver.php');
             $loader->load('security.php');
             $loader->load('services.php');
-
-            if (($env = $container->getParameter('kernel.environment')) === 'dev' && class_exists(WebProfilerExtension::class)) {
-                $container->setAlias(Profiler::class, 'profiler');
-            }
         }
     }
 

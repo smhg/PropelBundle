@@ -12,30 +12,41 @@ namespace Propel\Bundle\PropelBundle\Controller;
 
 use Propel\Bundle\PropelBundle\DataCollector\PropelDataCollector;
 use Propel\Runtime\Propel;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
+use Twig\Environment;
 
 /**
  * PanelController is designed to display information in the Propel Panel.
  *
  * @author William DURAND <william.durand1@gmail.com>
  */
-class PanelController extends AbstractController
+class PanelController
 {
+    /**
+     * @param array<string, mixed> $configuration
+     */
+    public function __construct(
+        private readonly Environment $twig,
+        private readonly ?Profiler $profiler,
+        private readonly array $configuration,
+        private readonly bool $logging,
+    ) {
+    }
+
     /**
      * This method renders the global Propel configuration.
      */
     public function configurationAction(): Response
     {
-        return $this->render(
+        return new Response($this->twig->render(
             '@Propel/Panel/configuration.html.twig',
             array(
                 'propel_version'     => Propel::VERSION,
-                'configuration'      => $this->getParameter('propel.configuration'),
-                'logging'            => $this->getParameter('propel.logging'),
+                'configuration'      => $this->configuration,
+                'logging'            => $this->logging,
             )
-        );
+        ));
     }
 
     /**
@@ -45,14 +56,17 @@ class PanelController extends AbstractController
      * @param string $connection The connection name
      * @param integer $query
      *
-     * @param Profiler|null $profiler
      * @return Response A Response instance
      */
-    public function explainAction(string $token, string $connection, int $query, ?Profiler $profiler): Response
+    public function explainAction(string $token, string $connection, int $query): Response
     {
-        $profiler->disable();
+        if (null === $this->profiler) {
+            return new Response('The profiler is not enabled.');
+        }
 
-        $profile = $profiler->loadProfile($token);
+        $this->profiler->disable();
+
+        $profile = $this->profiler->loadProfile($token);
 
         /** @var PropelDataCollector $propelDataCollector */
         $propelDataCollector = $profile->getCollector('propel');
@@ -73,12 +87,12 @@ class PanelController extends AbstractController
             return new Response('<div class="error">This query cannot be explained.</div>');
         }
 
-        return $this->render(
+        return new Response($this->twig->render(
             '@Propel/Panel/explain.html.twig',
             array(
                 'data' => $results,
                 'query' => $query,
             )
-        );
+        ));
     }
 }

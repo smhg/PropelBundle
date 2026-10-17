@@ -6,6 +6,8 @@ use Propel\Bundle\PropelBundle\PropelBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;
+use Symfony\Bundle\TwigBundle\TwigBundle;
+use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel;
 
@@ -17,6 +19,8 @@ class TestKernel extends Kernel
     {
         yield new FrameworkBundle();
         yield new SecurityBundle();
+        yield new TwigBundle();
+        yield new WebProfilerBundle();
         yield new PropelBundle();
     }
 
@@ -42,6 +46,7 @@ class TestKernel extends Kernel
             'test' => true,
             'http_method_override' => false,
             'php_errors' => ['log' => true],
+            'profiler' => ['collect' => false],
         ]);
 
         $container->extension('security', [
