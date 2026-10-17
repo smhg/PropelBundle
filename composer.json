@@ -9,8 +9,7 @@
         "email": "william.durand1@gmail.com"
     }],
     "autoload": {
-        "psr-4": { "Propel\\Bundle\\PropelBundle\\": "src/" },
-        "classmap": ["src/AppBundle.php"]
+        "psr-4": { "Propel\\Bundle\\PropelBundle\\": "src/" }
     },
     "autoload-dev": {
         "psr-4": { "Propel\\Bundle\\PropelBundle\\Tests\\": "tests/" }

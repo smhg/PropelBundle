@@ -9,7 +9,7 @@
 
 namespace Propel\Bundle\PropelBundle\Command;
 
-use App\AppBundle;
+use Propel\Bundle\PropelBundle\AppBundle;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

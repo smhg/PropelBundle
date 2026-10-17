@@ -10,7 +10,7 @@
 
 namespace Propel\Bundle\PropelBundle\Service;
 
-use App\AppBundle;
+use Propel\Bundle\PropelBundle\AppBundle;
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\Finder;

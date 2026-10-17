@@ -10,7 +10,7 @@
 
 namespace Propel\Bundle\PropelBundle\Command;
 
-use App\AppBundle;
+use Propel\Bundle\PropelBundle\AppBundle;
 use Propel\Bundle\PropelBundle\Form\FormBuilder;
 use Propel\Generator\Config\GeneratorConfig;
 use Propel\Generator\Model\Database;
