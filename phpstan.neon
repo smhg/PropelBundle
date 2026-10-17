@@ -7,6 +7,10 @@ parameters:
     -
       identifier: method.notFound
       message: '#^Call to an undefined method Propel\\Runtime\\(ActiveRecord\\ActiveRecordInterface|ActiveQuery\\ModelCriteria|Map\\TableMap)(&\S+)?::#'
+    # its replacement is only available as of Symfony 8.1
+    -
+      message: '#deprecated interface Symfony\\Component\\HttpKernel\\Bundle\\BundleInterface#'
+      reportUnmatched: false
     # Perpl aliases Propel to Perpl, which PHPStan does not follow; the bundle keeps Propel to support propel/propel
     -
       message: '#(on deprecated class|undefined (static method|constant)) Propel\\Runtime\\Propel\b#'
