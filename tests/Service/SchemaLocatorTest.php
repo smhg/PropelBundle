@@ -60,7 +60,7 @@ class SchemaLocatorTest extends TestCase
         $this->root = vfsStream::setup('projectDir');
         vfsStream::create($pathStructure);
 
-        $this->kernelMock = $this->getMockBuilder(Kernel::class)->disableOriginalConstructor()->getMock();
+        $this->kernelMock = $this->createStub(Kernel::class);
         $this->kernelMock->method('getProjectDir')->willReturn($this->root->url());
         $this->kernelMock->method('locateResource')->willReturnCallback(function($argument) {
             return (str_replace('@', __DIR__ . '/../Fixtures/', $argument));

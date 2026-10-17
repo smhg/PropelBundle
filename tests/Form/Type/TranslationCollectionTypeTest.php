@@ -21,6 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class TranslationCollectionTypeTest extends TypeTestCase
 {
@@ -30,6 +31,8 @@ class TranslationCollectionTypeTest extends TypeTestCase
 
     protected function setUp(): void
     {
+        $this->dispatcher = $this->createStub(EventDispatcherInterface::class);
+
         parent::setUp();
     }
 
