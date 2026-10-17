@@ -31,7 +31,7 @@ class FormBuilder
     public function buildFormType(BundleInterface $bundle, Table $table, $formTypeNamespace)
     {
         $modelName = $table->getPhpName();
-        $formTypeContent = file_get_contents(__DIR__ . '/../templates/skeleton/FormType.php');
+        $formTypeContent = file_get_contents(__DIR__ . '/../../templates/skeleton/FormType.php');
 
         $formTypeContent = str_replace('##NAMESPACE##', $bundle->getNamespace() . str_replace('/', '\\', $formTypeNamespace), $formTypeContent);
         $formTypeContent = str_replace('##CLASS##', $modelName . 'Type', $formTypeContent);

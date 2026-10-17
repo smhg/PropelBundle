@@ -27,6 +27,11 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class PropelBundle extends Bundle
 {
+    public function getPath(): string
+    {
+        return \dirname(__DIR__);
+    }
+
     /**
      * {@inheritdoc}
      */

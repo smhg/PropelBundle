@@ -50,13 +50,13 @@ class PropelExtension extends Extension
 
         // Load services
         if (!$container->hasDefinition('propel')) {
-            $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../config'));
+            $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
             $loader->load('propel.xml');
             $loader->load('converters.xml');
             $loader->load('security.xml');
             $loader->load('console.xml');
 
-            $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../config'));
+            $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
             $loader->load('services.yml');
 
             if (($env = $container->getParameter('kernel.environment')) === 'dev' && class_exists(WebProfilerExtension::class)) {
@@ -83,7 +83,7 @@ class PropelExtension extends Extension
      */
     public function getXsdValidationBasePath(): string
     {
-        return __DIR__.'/../config/schema';
+        return __DIR__.'/../../config/schema';
     }
 
     /**

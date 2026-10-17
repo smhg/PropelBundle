@@ -4,9 +4,8 @@ services:
       autoconfigure: true
       public: false
     Propel\Bundle\PropelBundle\:
-      resource: '../*'
-      ## templates/skeleton contains not valid php
+      resource: '../src/*'
       ## Twig\Extension\SyntaxExtension.php is defined in Propel.xml
-      exclude: '../{Console,Propel,Model,Migrations,Tests,Helpers,DependencyInjection,Form,Listener,Validator,templates/skeleton,Twig/Extension/SyntaxExtension.php,DataCollector,AppBundle.php}'
+      exclude: '../src/{Console,Propel,Model,Migrations,Helpers,DependencyInjection,Form,Listener,Validator,Twig/Extension/SyntaxExtension.php,DataCollector,AppBundle.php}'
     ### creating service alias
     Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'

@@ -4,8 +4,4 @@ includes:
 parameters:
   level: 6
   paths:
-    - ./
-  excludePaths:
-    - templates/skeleton
-    - Tests
-    - vendor
+    - src

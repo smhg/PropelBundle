@@ -9,9 +9,11 @@
         "email": "william.durand1@gmail.com"
     }],
     "autoload": {
-        "psr-4": { "Propel\\Bundle\\PropelBundle\\": "" },
-        "classmap": ["AppBundle.php"],
-        "exclude-from-classmap": [ "Tests/" ]
+        "psr-4": { "Propel\\Bundle\\PropelBundle\\": "src/" },
+        "classmap": ["src/AppBundle.php"]
+    },
+    "autoload-dev": {
+        "psr-4": { "Propel\\Bundle\\PropelBundle\\Tests\\": "Tests/" }
     },
     "require": {
         "php": ">=8.2",
