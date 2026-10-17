@@ -1,59 +1,84 @@
-PropelBundle
-============
+PerplBundle
+===========
 
-[![CI](https://github.com/SkyFoxvn/PropelBundle/actions/workflows/ci.yml/badge.svg)](https://github.com/SkyFoxvn/PropelBundle/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/SkyFoxvn/PropelBundle/branch/6.0/graph/badge.svg?token=GsBNYniEtk)](https://codecov.io/gh/SkyFoxvn/PropelBundle)
-[![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%208.0.2-8892BF.svg)](https://php.net/)
+[![CI](https://github.com/perplorm/perpl-bundle/actions/workflows/ci.yml/badge.svg)](https://github.com/perplorm/perpl-bundle/actions/workflows/ci.yml)
 
+Integration of [Perpl](https://perplorm.github.io), the maintained fork of Propel2, in Symfony.
 
-This is the official implementation of [Propel](http://www.propelorm.org/) in Symfony.
+## Requirements
 
-## Branching model
+* PHP 8.2+
+* Symfony 7.4 LTS or 8.x
+* Perpl 2.10+
 
-As `Propel2` will be released in the near future, we are migrating the branching model of this bundle in advance!
+## Installation
 
-* The `1.0` branch contains Propel *1.6* integration for Symfony *2.0* (*currently 2.0 branch*).
-* The `1.1` branch contains Propel *1.6* integration for Symfony *2.1* (*currently 2.1 branch*).
-* The `1.2` branch contains Propel *1.6* integration for Symfony *2.2* (*currently master branch*).
-* The `2.0` branch contains `Propel2` integration for Symfony *2.5-2.8*.
-* The `3.0` branch contains `Propel2` integration for Symfony *2.8-3.x*.
-* The `5.0` branch contains `Propel2`(branch **2.0.0-beta1**) integration for Symfony **4.x|5.x** and PHP **7.2** - **8.0**.
-* The `5.1` branch contains `Propel2`(branch **2.0.0-beta2**) integration for Symfony **4.x|5.x|6.x** and PHP **7.4** - **8.1**.
-* The `6.0` branch contains `Propel2`(branch **2.0.0-beta2**) integration for Symfony **6.x**. and PHP **8.0.2+**
-* The `7.0` branch contains `Propel2`(branch **2.0.0-beta2**, **2.0.0-beta3**, **2.0.0-beta4**) integration for Symfony **6.x|7.x**. and PHP **8.0.2+**
+```bash
+composer require perplorm/perpl-bundle
+```
 
-## Version 6.0 Changes
+Register the bundle if Symfony Flex did not do it for you:
 
-## Symfony 6.0 Installation
-### Requirements
-- php: 8.0.2+
-- propel/propel
+```php
+// config/bundles.php
+return [
+    // ...
+    Propel\Bundle\PropelBundle\PropelBundle::class => ['all' => true],
+];
+```
 
-### Composer command
-- composer require propel/propel "2.0.0-beta4"
-- composer require skyfox/propel-bundle "6.0.1"(or newer tag/release) or "6.0.x-dev"
+## Configuration
 
-### composer.json -> add in "require"
-- "propel/propel": "2.0.0-beta4"
-- "skyfox/propel-bundle": "6.0.1"(or newer tag/release) or "6.0.x-dev"
+```yaml
+# config/packages/propel.yaml
+propel:
+    database:
+        connections:
+            default:
+                adapter: mysql
+                dsn: '%env(DATABASE_DSN)%'
+                user: '%env(DATABASE_USER)%'
+                password: '%env(DATABASE_PASSWORD)%'
+```
+
+Schemas are read from `config/*schema.xml`, from `propel/schema.xml` (see `propel.paths.schemaDir`) and from the `Resources/config/*schema.xml` files of your bundles.
 
 ## Features
 
-* Generation of model classes based on an XML schema (not YAML) placed under `BundleName/Resources/*schema.xml`;
+* Generation of model classes based on XML schemas;
 * Insertion of SQL statements;
-* Runtime autoloading of Propel and generated classes;
-* Propel runtime initialization through the XML configuration;
-* [Propel Migrations](http://propelorm.org/documentation/09-migrations.html);
-* Reverse engineering from [existing database](http://propelorm.org/documentation/cookbook/working-with-existing-databases.html);
-* Integration to the Symfony Profiler;
-* Load SQL, YAML and XML fixtures;
-* Create/Drop databases;
-* Integration with the Form component;
-* Integration with the Security component;
-* Controller arguments type-hinted with a model class are resolved from route parameters (configurable with `#[MapModel]`).
+* Perpl runtime initialization through the bundle configuration;
+* Migrations;
+* Reverse engineering from an existing database;
+* Integration with the Symfony Profiler;
+* Loading SQL, YAML and XML fixtures;
+* Creating and dropping databases;
+* Integration with the Form, Security and Validator components;
+* Resolving controller arguments type-hinted with a model class from route parameters.
 
-[Read the documentation](http://propelorm.org/documentation/)
+### Controller arguments
 
-For license, see:
+Arguments type-hinted with a model class are looked up by primary key, or by the other route parameters matching a column:
 
-    LICENSE
+```php
+#[Route('/books/{id}')]
+public function show(Book $book): Response
+
+#[Route('/books/{slug}')]
+public function showBySlug(Book $book): Response
+```
+
+Configure the lookup with the `#[MapModel]` attribute:
+
+```php
+use Propel\Bundle\PropelBundle\Attribute\MapModel;
+
+#[Route('/authors/{author_id}/books')]
+public function books(#[MapModel(mapping: ['author_id' => 'id'], with: 'Book')] Author $author): Response
+```
+
+A nullable argument receives `null` when nothing is found, otherwise a 404 is returned.
+
+## License
+
+See [LICENSE](LICENSE).
