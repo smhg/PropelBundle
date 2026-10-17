@@ -123,7 +123,7 @@ abstract class AbstractDataLoader extends AbstractDataHandler implements DataLoa
     /**
      * Loads the data using the generated data model.
      *
-     * @param array<string, array<string, array<string, mixed>>>|null $data The data to be loaded
+     * @param array<string, array<string, mixed>|null>|null $data The data to be loaded
      *
      * @throws \ReflectionException
      */
@@ -250,10 +250,6 @@ abstract class AbstractDataLoader extends AbstractDataHandler implements DataLoa
      */
     protected function saveParentReference(string $class, string $key, ActiveRecordInterface $obj): void
     {
-        if (!method_exists($obj, 'getPrimaryKey')) {
-            return;
-        }
-
         $this->object_references[$this->cleanObjectRef($class.'_'.$key)] = $obj;
 
         // Get parent (schema ancestor) of parent (Propel base class) in case of inheritance
@@ -292,7 +288,7 @@ abstract class AbstractDataLoader extends AbstractDataHandler implements DataLoa
             }
         }
 
-        if (!isset($relatedClass)) {
+        if (!isset($relatedClass, $setter, $relatedSetter)) {
             throw new \InvalidArgumentException(sprintf('Unable to find the many-to-many relationship for object "%s".', get_class($obj)));
         }
 
