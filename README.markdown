@@ -3,19 +3,29 @@ PerplBundle
 
 [![CI](https://github.com/perplorm/perpl-bundle/actions/workflows/ci.yml/badge.svg)](https://github.com/perplorm/perpl-bundle/actions/workflows/ci.yml)
 
-Integration of [Perpl](https://perplorm.github.io), the maintained fork of Propel2, in Symfony.
+Integration of [Perpl](https://perplorm.github.io), the maintained fork of Propel2, and of [Propel2](https://github.com/propelorm/Propel2) itself in Symfony.
 
 ## Requirements
 
 * PHP 8.2+
 * Symfony 7.4 LTS or 8.x
-* Perpl 2.10+
+* Perpl 2.10+, or Propel2 from its `master` branch (Symfony 7.4 only, until Propel2 supports Symfony 8)
 
 ## Installation
 
+With Perpl:
+
 ```bash
-composer require perplorm/perpl-bundle
+composer require perplorm/perpl perplorm/perpl-bundle
 ```
+
+With Propel2, require its `master` branch first, as you already do today:
+
+```bash
+composer require propel/propel:dev-master perplorm/perpl-bundle
+```
+
+Coming from `propel/propel-bundle` or one of its forks? See [UPGRADE.md](UPGRADE.md).
 
 Register the bundle if Symfony Flex did not do it for you:
 
@@ -47,7 +57,7 @@ Schemas are read from `config/*schema.xml`, from `propel/schema.xml` (see `prope
 
 * Generation of model classes based on XML schemas;
 * Insertion of SQL statements;
-* Perpl runtime initialization through the bundle configuration;
+* Runtime initialization through the bundle configuration;
 * Migrations;
 * Reverse engineering from an existing database;
 * Integration with the Symfony Profiler;
@@ -79,6 +89,12 @@ public function books(#[MapModel(mapping: ['author_id' => 'id'], with: 'Book')] 
 
 A nullable argument receives `null` when nothing is found, otherwise a 404 is returned.
 
+## History and credits
+
+PerplBundle continues [PropelBundle](https://github.com/propelorm/PropelBundle), started by William Durand in 2010 and developed by many contributors since, among them Kévin Gomez, Marc J. Schmidt, Toni Uebernickel, Gregor Harlan and Moritz Schroeder. Its Symfony 7 support comes from the [SkyFoxvn fork](https://github.com/SkyFoxvn/PropelBundle). The form, security and translation integration started out in Symfony's Propel1 bridge, which is why those files carry Symfony's copyright notice.
+
+Thanks to everyone who worked on these projects. The full history is kept in this repository.
+
 ## License
 
-See [LICENSE](LICENSE).
+Released under the MIT license, see [LICENSE](LICENSE).
