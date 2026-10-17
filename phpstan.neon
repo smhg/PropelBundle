@@ -2,3 +2,16 @@ parameters:
   level: 6
   paths:
     - src
+  ignoreErrors:
+    # methods of generated model, query and table map classes
+    -
+      identifier: method.notFound
+      message: '#^Call to an undefined method Propel\\Runtime\\(ActiveRecord\\ActiveRecordInterface|ActiveQuery\\ModelCriteria|Map\\TableMap)(&\S+)?::#'
+    # Perpl aliases Propel to Perpl, which PHPStan does not follow; the bundle keeps Propel to support propel/propel
+    -
+      message: '#(on deprecated class|undefined (static method|constant)) Propel\\Runtime\\Propel\b#'
+      reportUnmatched: false
+    # Perpl deprecates these, but their replacements are missing in propel/propel
+    -
+      message: '#^Call to deprecated method (getClassName|isUseIdGenerator|joinWith)\(\) of class Propel\\#'
+      reportUnmatched: false
