@@ -1,7 +1,7 @@
 {
-    "name": "skyfox/propel-bundle",
-    "description": "Integration of Propel in Symfony",
-    "keywords": ["propel", "orm", "persistence"],
+    "name": "perplorm/perpl-bundle",
+    "description": "Integration of Perpl in Symfony",
+    "keywords": ["perpl", "propel", "orm", "persistence"],
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [{
