@@ -22,6 +22,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 /**
@@ -199,7 +200,7 @@ EOT
     {
         $schemaFiles = array();
         foreach ($schemas as $data) {
-            $schemaFiles[] = $data[1];
+            $schemaFiles[] = new SplFileInfo($data[1]->getPathname(), '', $data[1]->getFilename());
         }
 
         $manager = new ModelManager();
