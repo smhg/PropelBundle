@@ -11,10 +11,9 @@
 namespace Propel\Bundle\PropelBundle\DependencyInjection;
 
 use Symfony\Bundle\WebProfilerBundle\DependencyInjection\WebProfilerExtension;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 
@@ -50,14 +49,12 @@ class PropelExtension extends Extension
 
         // Load services
         if (!$container->hasDefinition('propel')) {
-            $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
-            $loader->load('propel.xml');
-            $loader->load('converters.xml');
-            $loader->load('security.xml');
-            $loader->load('console.xml');
-
-            $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
-            $loader->load('services.yml');
+            $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../../config'));
+            $loader->load('propel.php');
+            $loader->load('converters.php');
+            $loader->load('security.php');
+            $loader->load('console.php');
+            $loader->load('services.php');
 
             if (($env = $container->getParameter('kernel.environment')) === 'dev' && class_exists(WebProfilerExtension::class)) {
                 $container->setAlias(Profiler::class, 'profiler');
