@@ -67,16 +67,6 @@ class PropelExtension extends Extension
     }
 
     /**
-     * Returns the base path for the XSD files.
-     *
-     * @return string The XSD base path
-     */
-    public function getXsdValidationBasePath(): string
-    {
-        return __DIR__.'/../../config/schema';
-    }
-
-    /**
      * Returns the recommended alias to use in XML.
      *
      * This alias is also the mandatory prefix to use when using YAML.
