@@ -1,6 +1,6 @@
 {
     "name": "perplorm/perpl-bundle",
-    "description": "Integration of Perpl in Symfony",
+    "description": "Integration of Propel and Perpl in Symfony",
     "keywords": ["perpl", "propel", "orm", "persistence"],
     "type": "symfony-bundle",
     "license": "MIT",
@@ -8,6 +8,9 @@
         "name": "William Durand",
         "email": "william.durand1@gmail.com"
     }],
+    "conflict": {
+        "perplorm/perpl": "<2.10"
+    },
     "autoload": {
         "psr-4": { "Propel\\Bundle\\PropelBundle\\": "src/" }
     },
@@ -16,7 +19,7 @@
     },
     "require": {
         "php": ">=8.2",
-        "perplorm/perpl": "^2.10",
+        "propel/propel": "^2.0.0-beta4||dev-main",
         "symfony/console": "^7.4||^8.0",
         "symfony/dependency-injection": "^7.4||^8.0",
         "symfony/deprecation-contracts": "^3.0",
@@ -28,6 +31,7 @@
         "ext-json": "*",
         "ext-simplexml": "*",
         "ext-pdo": "*",
+        "perplorm/perpl": "^2.10",
         "phpunit/phpunit": "^11.5||^12.0",
         "symfony/form": "^7.4||^8.0",
         "fakerphp/faker": "*",

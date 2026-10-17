@@ -10,18 +10,22 @@ permissions:
 
 jobs:
   tests:
-    name: "PHP ${{ matrix.php-version }} - Symfony ${{ matrix.symfony-version }}"
+    name: "PHP ${{ matrix.php-version }} - Symfony ${{ matrix.symfony-version }} - ${{ matrix.orm }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         php-version: [ '8.2', '8.3', '8.4', '8.5' ]
         symfony-version: [ '7.4.*', '8.*' ]
+        orm: [ 'perpl', 'propel' ]
         exclude:
           # Symfony 8 requires PHP 8.4
           - php-version: '8.2'
             symfony-version: '8.*'
           - php-version: '8.3'
+            symfony-version: '8.*'
+          # propel/propel does not support Symfony 8 yet
+          - orm: 'propel'
             symfony-version: '8.*'
     steps:
       - name: Checkout
@@ -34,6 +38,10 @@ jobs:
           coverage: none
           tools: flex
 
+      - name: Use propel/propel instead of Perpl
+        if: matrix.orm == 'propel'
+        run: composer remove --dev --no-update perplorm/perpl
+
       - name: Install dependencies
         uses: ramsey/composer-install@v3
         with:
@@ -45,8 +53,12 @@ jobs:
         run: vendor/bin/phpunit
 
   phpstan:
-    name: PHPStan
+    name: "PHPStan - ${{ matrix.orm }}"
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        orm: [ 'perpl', 'propel' ]
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -56,6 +68,10 @@ jobs:
         with:
           php-version: '8.5'
           coverage: none
+
+      - name: Use propel/propel instead of Perpl
+        if: matrix.orm == 'propel'
+        run: composer remove --dev --no-update perplorm/perpl
 
       - name: Install dependencies
         uses: ramsey/composer-install@v3
