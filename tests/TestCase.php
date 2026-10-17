@@ -11,6 +11,9 @@
 namespace Propel\Bundle\PropelBundle\Tests;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
+use Propel\Generator\Builder\Om\BuilderType;
+use Propel\Generator\Util\QuickBuilder;
+use Propel\Runtime\Connection\ConnectionInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
@@ -42,5 +45,24 @@ class TestCase extends BaseTestCase
         $serviceContainer->initDatabaseMaps(array (
             'default' => $databaseMapsArray
         ));
+    }
+
+    /**
+     * Builds a schema the same way for propel/propel and Perpl.
+     *
+     * @param list<string>|null $classTargets class targets like 'tablemap' or 'querystub'
+     */
+    protected static function buildSchema(string $schema, ?array $classTargets = null): ConnectionInterface
+    {
+        $builder = new QuickBuilder();
+        if (method_exists($builder, 'setSchemaXml')) {
+            $builder->setSchemaXml($schema);
+            // Perpl takes BuilderType enum cases with these names as values
+            $classTargets = null === $classTargets ? null : array_map(BuilderType::from(...), $classTargets);
+        } else {
+            $builder->setSchema($schema);
+        }
+
+        return $builder->build(null, null, null, null, $classTargets);
     }
 }

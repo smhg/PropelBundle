@@ -10,7 +10,6 @@
 
 namespace Propel\Bundle\PropelBundle\Tests\DataFixtures\Loader;
 
-use Propel\Generator\Util\QuickBuilder;
 use Propel\Runtime\Propel;
 use Propel\Bundle\PropelBundle\Tests\DataFixtures\TestCase;
 use Propel\Bundle\PropelBundle\DataFixtures\Loader\YamlDataLoader;
@@ -239,10 +238,7 @@ YAML;
 
         $filename = $this->getTempFile($fixtures);
 
-        $builder = new QuickBuilder();
-        $builder->setSchemaXml($schema);
-
-        $con = $builder->build();
+        $con = self::buildSchema($schema);
 
         $loader = new YamlDataLoader(__DIR__.'/../../Fixtures/DataFixtures/Loader', array());
         $loader->load(array($filename), 'default');
@@ -328,9 +324,7 @@ YAML;
         $filename1 = $this->getTempFile($fixtures1);
         $filename2 = $this->getTempFile($fixtures2);
 
-        $builder = new QuickBuilder();
-        $builder->setSchemaXml($schema);
-        $con = $builder->build();
+        $con = self::buildSchema($schema);
 
         $loader = new YamlDataLoader(__DIR__.'/../../Fixtures/DataFixtures/Loader', array());
         $loader->load(array($filename1, $filename2), 'default');
@@ -397,9 +391,7 @@ YAML;
 
         $filename = $this->getTempFile($fixtures);
 
-        $builder = new QuickBuilder();
-        $builder->setSchemaXml($schema);
-        $con = $builder->build();
+        $con = self::buildSchema($schema);
 
         $loader = new YamlDataLoader(__DIR__.'/../../Fixtures/DataFixtures/Loader', array());
         $loader->load(array($filename), 'default');
@@ -432,9 +424,7 @@ YAML;
 
         $filename = $this->getTempFile($fixtures);
 
-        $builder = new QuickBuilder();
-        $builder->setSchemaXml($schema);
-        $con = $builder->build();
+        $con = self::buildSchema($schema);
 
         $loader = new YamlDataLoader(__DIR__.'/../../Fixtures/DataFixtures/Loader', array());
         $loader->load(array($filename), 'default');
@@ -482,9 +472,7 @@ YAML;
 
         $filename = $this->getTempFile($fixtures);
 
-        $builder = new QuickBuilder();
-        $builder->setSchemaXml($schema);
-        $con = $builder->build();
+        $con = self::buildSchema($schema);
 
         $loader = new YamlDataLoader(__DIR__.'/../../Fixtures/DataFixtures/Loader', array());
         $loader->load(array($filename), 'default');

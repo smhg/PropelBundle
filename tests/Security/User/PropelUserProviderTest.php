@@ -10,9 +10,6 @@
 
 namespace Propel\Bundle\PropelBundle\Tests\Security\User;
 
-use Propel\Generator\Builder\Om\BuilderType;
-use Propel\Generator\Util\QuickBuilder;
-
 use Propel\Bundle\PropelBundle\Security\User\PropelUserProvider;
 use Propel\Bundle\PropelBundle\Tests\Fixtures\Model\User;
 use Propel\Bundle\PropelBundle\Tests\TestCase;
@@ -45,11 +42,7 @@ class PropelUserProviderTest extends TestCase
     </database>
     SCHEMA;
 
-            $builder = new QuickBuilder();
-            $builder->setSchemaXml($schema);
-            $classTargets = [BuilderType::TableMap, BuilderType::ObjectBase, BuilderType::QueryBase, BuilderType::QueryStub];
-
-            $this::$con = $builder->build($dsn = null, $user = null, $pass = null, $adapter = null, $classTargets);
+            $this::$con = self::buildSchema($schema, ['tablemap', 'object', 'query', 'querystub']);
 
         }
     }
