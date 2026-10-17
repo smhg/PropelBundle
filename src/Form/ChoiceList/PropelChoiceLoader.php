@@ -174,7 +174,7 @@ class PropelChoiceLoader implements ChoiceLoaderInterface
             return array();
         }
 
-        if (1 === count($this->identifier) && current($this->identifier) instanceof ColumnMap) {
+        if (1 === count($this->identifier)) {
             $phpName = current($this->identifier)->getPhpName();
             if (method_exists($model, 'get' . $phpName)) {
                 return array($model->{'get' . $phpName}());

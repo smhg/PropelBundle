@@ -53,6 +53,8 @@ use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
  *      ;
  *   }
  * </code>
+ *
+ * @extends AbstractType<mixed>
  */
 class ModelType extends AbstractType
 {

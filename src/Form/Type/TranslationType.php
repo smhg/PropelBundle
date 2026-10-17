@@ -21,6 +21,8 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  * Translation type class
  *
  * @author Patrick Kaufmann
+ *
+ * @extends AbstractType<mixed>
  */
 class TranslationType extends AbstractType
 {

@@ -22,6 +22,8 @@ use Propel\Bundle\PropelBundle\Form\EventListener\TranslationCollectionFormListe
  * form type for i18n-columns in propel
  *
  * @author Patrick Kaufmann
+ *
+ * @extends AbstractType<mixed>
  */
 class TranslationCollectionType extends AbstractType
 {
