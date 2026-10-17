@@ -10,11 +10,14 @@
 
 namespace Propel\Bundle\PropelBundle\Validator\Constraints;
 
+use Propel\Runtime\ActiveRecord\ActiveRecordInterface;
 use Propel\Runtime\Map\TableMap;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 /**
  * Unique Object Validator checks if one or a set of fields contain unique values.
@@ -24,13 +27,17 @@ use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
  */
 class UniqueObjectValidator extends ConstraintValidator
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function validate($object, Constraint $constraint): void
+    public function validate(mixed $object, Constraint $constraint): void
     {
-        /** @var UniqueObject $constraint */
-        $fields         = (array) $constraint->fields;
+        if (!$constraint instanceof UniqueObject) {
+            throw new UnexpectedTypeException($constraint, UniqueObject::class);
+        }
+
+        if (!$object instanceof ActiveRecordInterface) {
+            throw new UnexpectedValueException($object, ActiveRecordInterface::class);
+        }
+
+        $fields         = $constraint->fields;
         $class          = get_class($object);
         $queryClass     = $class . 'Query';
         $tableMapClass  = $class::TABLE_MAP;

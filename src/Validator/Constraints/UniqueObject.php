@@ -10,9 +10,9 @@
 
 namespace Propel\Bundle\PropelBundle\Validator\Constraints;
 
+use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  * Constraint for the Unique Object validator
@@ -20,51 +20,68 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  * @author Maxime AILLOUD <maxime.ailloud@gmail.com>
  * @author Marek Kalnik <marekk@theodo.fr>
  */
+#[\Attribute(\Attribute::TARGET_CLASS | \Attribute::IS_REPEATABLE)]
 class UniqueObject extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'A {{ object_class }} object already exists with {{ fields }}';
 
     /**
-     * @var string Used to merge multiple fields in the message
+     * Used to merge multiple fields in the message
      */
     public string $messageFieldSeparator = ' and ';
 
     /**
-     * @var array<mixed>|string
+     * @var string[]
      */
-    public $fields = array();
+    public array $fields;
 
     /**
-     * @var string|null Used to set the path where the error will be attached, default is global.
+     * Used to set the path where the error will be attached, default is the first field.
      */
     public ?string $errorPath = null;
 
-    public function __construct($options = null)
-    {
-        parent::__construct($options);
+    /**
+     * @param string|string[]|array<string, mixed> $fields the field(s), or an array of options (deprecated)
+     * @param string[]|null                        $groups
+     */
+    #[HasNamedArguments]
+    public function __construct(
+        string|array $fields,
+        ?string $message = null,
+        ?string $messageFieldSeparator = null,
+        ?string $errorPath = null,
+        ?array $groups = null,
+        mixed $payload = null,
+    ) {
+        if (\is_array($fields) && !array_is_list($fields)) {
+            trigger_deprecation('perplorm/perpl-bundle', '1.0', 'Passing an array of options to "%s" is deprecated, use named arguments instead.', __CLASS__);
 
-        if (!is_array($this->fields) && !is_string($this->fields)) {
-            throw new UnexpectedTypeException($this->fields, 'array');
+            $options = $fields;
+            if ($unknown = array_diff(array_keys($options), ['fields', 'message', 'messageFieldSeparator', 'errorPath', 'groups', 'payload'])) {
+                throw new ConstraintDefinitionException(sprintf('The options "%s" do not exist in constraint "%s".', implode('", "', $unknown), __CLASS__));
+            }
+
+            $fields = $options['fields'] ?? [];
+            $message = $options['message'] ?? $message;
+            $messageFieldSeparator = $options['messageFieldSeparator'] ?? $messageFieldSeparator;
+            $errorPath = $options['errorPath'] ?? $errorPath;
+            $groups = $options['groups'] ?? $groups;
+            $payload = $options['payload'] ?? $payload;
         }
 
-        if (0 === count($this->fields)) {
-            throw new ConstraintDefinitionException("At least one field must be specified.");
-        }
+        parent::__construct(null, $groups, $payload);
 
-        if (null !== $this->errorPath && !is_string($this->errorPath)) {
-            throw new UnexpectedTypeException($this->errorPath, 'string or null');
+        $this->fields = (array) $fields;
+        $this->message = $message ?? $this->message;
+        $this->messageFieldSeparator = $messageFieldSeparator ?? $this->messageFieldSeparator;
+        $this->errorPath = $errorPath;
+
+        if ([] === $this->fields) {
+            throw new ConstraintDefinitionException('At least one field must be specified.');
         }
     }
 
-    public function getRequiredOptions(): array
-    {
-        return array('fields');
-    }
-
-    public function getTargets(): array|string
+    public function getTargets(): string
     {
         return self::CLASS_CONSTRAINT;
     }
