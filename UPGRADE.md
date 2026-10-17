@@ -12,6 +12,8 @@ Replace the old bundle package:
 +"perplorm/perpl-bundle": "^1.0",
 ```
 
+Symfony Flex removes `Propel\Bundle\PropelBundle\PropelBundle` from `config/bundles.php` when it uninstalls the old package, because both packages use the same bundle class. Check `config/bundles.php` after `composer update` and restore the line if it is gone.
+
 Keep requiring Propel2 from its `master` branch, or switch to Perpl (see below). PerplBundle requires PHP 8.2 or later and Symfony 7.4 LTS or 8.x. Symfony 8 needs Perpl, because Propel2 does not support it yet.
 
 ## Unchanged
