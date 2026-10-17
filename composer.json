@@ -13,7 +13,7 @@
         "classmap": ["src/AppBundle.php"]
     },
     "autoload-dev": {
-        "psr-4": { "Propel\\Bundle\\PropelBundle\\Tests\\": "Tests/" }
+        "psr-4": { "Propel\\Bundle\\PropelBundle\\Tests\\": "tests/" }
     },
     "require": {
         "php": ">=8.2",
