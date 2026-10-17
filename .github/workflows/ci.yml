@@ -42,7 +42,7 @@ jobs:
           SYMFONY_REQUIRE: ${{ matrix.symfony-version }}
 
       - name: Run tests
-        run: vendor/bin/phpunit --display-deprecations --display-notices --display-warnings
+        run: vendor/bin/phpunit
 
   phpstan:
     name: PHPStan
