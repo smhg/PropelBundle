@@ -19,6 +19,7 @@
         "perplorm/perpl": "^2.10",
         "symfony/console": "^7.4||^8.0",
         "symfony/dependency-injection": "^7.4||^8.0",
+        "symfony/deprecation-contracts": "^3.0",
         "symfony/framework-bundle": "^7.4||^8.0",
         "symfony/security-bundle": "^7.4||^8.0",
         "symfony/yaml": "^7.4||^8.0"

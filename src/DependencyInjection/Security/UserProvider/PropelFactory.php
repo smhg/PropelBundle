@@ -11,7 +11,7 @@ namespace Propel\Bundle\PropelBundle\DependencyInjection\Security\UserProvider;
 
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\UserProvider\UserProviderFactoryInterface;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
-use Symfony\Component\Config\Definition\Builder\ParentNodeDefinitionInterface;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
@@ -51,7 +51,7 @@ class PropelFactory implements UserProviderFactoryInterface
 
     public function addConfiguration(NodeDefinition $node): void
     {
-        /** @var ParentNodeDefinitionInterface $node */
+        /** @var ArrayNodeDefinition $node */
         $node
             ->children()
             ->scalarNode('class')->isRequired()->cannotBeEmpty()->end()

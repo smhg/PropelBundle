@@ -11,15 +11,18 @@
 
 namespace Propel\Bundle\PropelBundle\Security\User;
 
+use Propel\Runtime\ActiveRecord\ActiveRecordInterface;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 
 /**
  * Provides easy to use provisioning for Propel model users.
  *
  * @author William DURAND <william.durand1@gmail.com>
+ *
+ * @implements UserProviderInterface<UserInterface>
  */
 class PropelUserProvider implements UserProviderInterface
 {
@@ -40,73 +43,60 @@ class PropelUserProvider implements UserProviderInterface
     /**
      * A property to use to retrieve the user.
      *
-     * @var string
+     * @var string|null
      */
     protected $property;
 
     /**
-     * Default constructor
-     *
      * @param string      $class    The User model class.
-     * @param string|null $property The property to use to retrieve a user.
+     * @param string|null $property The property to use to retrieve a user, defaults to "username".
      */
-    public function __construct($class, $property = null)
+    public function __construct(string $class, ?string $property = null)
     {
         $this->class = $class;
         $this->queryClass = $class.'Query';
         $this->property = $property;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @param string $username
-     */
-    public function loadUserByUsername($username): UserInterface
+    public function loadUserByIdentifier(string $identifier): UserInterface
     {
-        $queryClass = $this->queryClass;
-        $query      = $queryClass::create();
+        $filter = 'filterBy'.ucfirst($this->property ?? 'username');
+        $user = $this->queryClass::create()->$filter($identifier)->findOne();
 
-        if (null !== $this->property) {
-            $filter = 'filterBy'.ucfirst($this->property);
-            $query->$filter($username);
-        } else {
-            $query->filterByUsername($username);
-        }
-
-        if (null === $user = $query->findOne()) {
-            throw new UserNotFoundException(sprintf('User "%s" not found.', $username));
+        if (!$user instanceof UserInterface) {
+            throw new UserNotFoundException(sprintf('User "%s" not found.', $identifier));
         }
 
         return $user;
     }
 
     /**
-     * {@inheritdoc}
+     * @deprecated since 1.0, use loadUserByIdentifier() instead
      */
+    public function loadUserByUsername(string $username): UserInterface
+    {
+        trigger_deprecation('perplorm/perpl-bundle', '1.0', 'Method "%s()" is deprecated, use "loadUserByIdentifier()" instead.', __METHOD__);
+
+        return $this->loadUserByIdentifier($username);
+    }
+
     public function refreshUser(UserInterface $user): UserInterface
     {
-        if (!$user instanceof $this->class) {
+        if (!$user instanceof $this->class || !$user instanceof ActiveRecordInterface) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
         }
 
-        $queryClass = $this->queryClass;
+        $refreshedUser = $this->queryClass::create()->findPk($user->getPrimaryKey());
 
-        return $queryClass::create()->findPk($user->getPrimaryKey());
+        if (!$refreshedUser instanceof UserInterface) {
+            throw new UserNotFoundException(sprintf('User with id "%s" not found.', json_encode($user->getPrimaryKey())));
+        }
+
+        return $refreshedUser;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @param string $class
-     */
-    public function supportsClass($class): bool
+    public function supportsClass(string $class): bool
     {
-        return $class === $this->class;
-    }
-
-    public function loadUserByIdentifier(string $identifier): UserInterface
-    {
-        return $this->loadUserByUsername($identifier);
+        return $class === $this->class || is_subclass_of($class, $this->class);
     }
 }

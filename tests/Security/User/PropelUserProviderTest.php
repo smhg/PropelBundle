@@ -78,22 +78,6 @@ class PropelUserProviderTest extends TestCase
         $this->assertSame($user1, $resultUser);
     }
 
-    public function testLoadUserByUsername() {
-        $user1 = new User();
-        $user1->setUsername('user1');
-        $user1->save();
-
-        $provider = new PropelUserProvider('Propel\Bundle\PropelBundle\Tests\Fixtures\Model\User', 'username');
-
-        // existing one
-        $this->assertInstanceOf(User::class, $provider->loadUserByUsername('user1'));
-
-        // not existing one
-        $this->expectException(UserNotFoundException::class);
-
-        $provider->loadUserByUsername('not_exists');
-    }
-
     public function testSupportsClass() {
         $class = 'Propel\Bundle\PropelBundle\Tests\Fixtures\Model\User';
 
@@ -116,6 +100,18 @@ class PropelUserProviderTest extends TestCase
         // not existing one
         $this->expectException(UserNotFoundException::class);
 
-        $provider->loadUserByUsername('not_exists');
+        $provider->loadUserByIdentifier('not_exists');
+    }
+
+    public function testLoadUserByUsernameIsDeprecated() {
+        $user1 = new User();
+        $user1->setUsername('user3');
+        $user1->save();
+
+        $provider = new PropelUserProvider('Propel\Bundle\PropelBundle\Tests\Fixtures\Model\User', 'username');
+
+        $this->expectUserDeprecationMessage('Since perplorm/perpl-bundle 1.0: Method "Propel\Bundle\PropelBundle\Security\User\PropelUserProvider::loadUserByUsername()" is deprecated, use "loadUserByIdentifier()" instead.');
+
+        $this->assertInstanceOf(User::class, $provider->loadUserByUsername('user3'));
     }
 }
